@@ -25,7 +25,7 @@
         public static ILCursor? OP_Breakpoint(this ILCursor? cursor) => cursor?.Emit(OpCodes.Break);
         public static ILCursor? OP_Branch_False(this ILCursor? cursor, ILLabel target) => cursor?.Emit(OpCodes.Brfalse, target);
         public static ILCursor? OP_Branch_True(this ILCursor? cursor, ILLabel target) => cursor?.Emit(OpCodes.Brtrue, target);
-        public static ILCursor? OP_Call_<TDelegate>(this ILCursor? cursor, TDelegate method) where TDelegate : Delegate
+        public static ILCursor? OP_Call<TDelegate>(this ILCursor? cursor, TDelegate method) where TDelegate : Delegate
         {
             cursor?.EmitDelegate<TDelegate>(method);
             return cursor;
