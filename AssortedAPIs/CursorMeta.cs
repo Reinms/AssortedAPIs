@@ -107,26 +107,27 @@
             return cursor;
         }
 
-        public static ILCursor? AddLocal<T>(this ILCursor? cursor, out Int32 index)
+        public static ILCursor? AddLocal<T>(this ILCursor? cursor, out Int32? index)
         {
-            index = cursor.Context.Body.Variables.Count;
-            cursor.Context.Body.Variables.Add(new VariableDefinition(cursor.Context.Import(typeof(T))));
+            index = cursor?.Context.Body.Variables.Count ?? 0;
+            cursor?.Context?.Body?.Variables?.Add(new VariableDefinition(cursor?.Context?.Import(typeof(T))));
             return cursor;
         }
 
-        public static ILCursor? AddRef<T>(this ILCursor? cursor, T value, out Int32 id)
+        public static ILCursor? AddRef<T>(this ILCursor? cursor, T value, out Int32? id)
         {
-            id = cursor.AddReference<T>(value);
+            id = cursor?.AddReference<T>(value);
             return cursor;
         }
-        public static ILCursor? GetRef<T>(this ILCursor? cursor, Int32 id)
+        public static ILCursor? GetRef<T>(this ILCursor? cursor, Int32? id)
         {
-            cursor.EmitGetReference<T>(id);
+            if(id is not Int32 _id) return cursor;
+            cursor?.EmitGetReference<T>(_id);
             return cursor;
         }
-        public static ILCursor? EmitRef<T>(this ILCursor? cursor, T value, out Int32 id)
+        public static ILCursor? EmitRef<T>(this ILCursor? cursor, T value, out Int32? id)
         {
-            id = cursor.EmitReference<T>(value);
+            id = cursor?.EmitReference<T>(value);
             return cursor;
         }
 
